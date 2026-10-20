@@ -46,3 +46,34 @@ class VerifyOtpView(APIView):
             "phone": identity.phone,
             "verified": True,
         })
+
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.utils import timezone
+from datetime import timedelta
+
+from apps.users.models import UserIdentity
+from apps.users.utils import normalize_phone
+
+class CheckVerificationView(APIView):
+    authentication_classes = []
+    
+    def get(self, request):
+        raw_phone = request.query_params.get("phone", "")
+        try:
+            phone = normalize_phone(raw_phone)
+        except ValueError:
+            return Response({"verified": False}, status=status.HTTP_400_BAD_REQUEST)
+        
+        identity = UserIdentity.objects.filter(phone=phone, is_verified=True).first()
+        if not identity or not identity.verified_at:
+            return Response({"verified": False})
+        
+        # بررسی ۳۰ دقیقه‌ای
+        if timezone.now() - identity.verified_at < timedelta(minutes=30):
+            return Response({"verified": True, "phone": phone})
+        
+        return Response({"verified": False})

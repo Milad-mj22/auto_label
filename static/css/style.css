@@ -10,6 +10,13 @@
   --danger: #ff5d6c;
   --border: #243056;
   --radius: 14px;
+  --bg-panel: var(--panel);
+  --border-light: var(--border);
+  --text-main: var(--text);
+  --text-muted: var(--muted);
+  --transition: .25s ease;
+
+
 }
 
 * { box-sizing: border-box; }
@@ -46,6 +53,11 @@ a { color: var(--primary-2); text-decoration: none; }
 .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
 .btn-ghost:hover { border-color: var(--primary); color: var(--primary-2); }
 .btn.big { padding: 14px 22px; font-size: 15px; }
+
+.btn-lg { padding: 14px 22px; font-size: 15px; }
+.btn-outline { background: transparent; color: var(--text); border-color: var(--border); }
+.btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary-2); }
+
 
 /* Hero */
 .hero { padding: 72px 0 48px; }

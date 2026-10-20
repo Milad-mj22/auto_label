@@ -10,3 +10,4 @@ pytest-mock==3.14.0
 whitenoise
 django-phonenumber-field
 smsir-python
+phonenumbers
