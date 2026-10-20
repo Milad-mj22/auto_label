@@ -17,7 +17,11 @@ def env_list(key: str, default: str = "") -> list[str]:
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "insecure-dev-key-change-me")
 DEBUG = env_bool("DJANGO_DEBUG", True)
-ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "industrial.mykaman.ir",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -110,14 +114,18 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS
-CORS_ALLOWED_ORIGINS = env_list(
-    "DJANGO_CORS_ALLOWED_ORIGINS",
-    "http://localhost:5500,http://127.0.0.1:5500,http://127.0.0.1:8000",
-)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:8000",
+    "https://industrial.mykaman.ir",
+]
+
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://localhost:8000",
+    "https://industrial.mykaman.ir",
 ]
 # DRF
 REST_FRAMEWORK = {
